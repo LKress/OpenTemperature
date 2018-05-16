@@ -13,7 +13,6 @@
 #  This program is distributed in the hope that it will be useful,
 #  but WITHOUT ANY WARRANTY; without even the implied warranty of
 #  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#  GNU General Public License for more details.
 #  
 #  You should have received a copy of the GNU General Public License
 #  along with this program; if not, write to the Free Software
@@ -22,6 +21,7 @@
 #  
 #  
 
+
 import re
 import time
 import bme680
@@ -29,27 +29,28 @@ import RPi.GPIO as GPIO
 
 sensor = bme680.BME680()  #Instance/Object of BME680
 
-sensor.set_humidity_oversample(bme680.OS_2X) #Please check BME680 instructions first                           
+sensor.set_humidity_oversample(bme680.OS_2X) #Please check BME680 instructions first
 sensor.set_pressure_oversample(bme680.OS_4X) #Balance samples for accuracy
 sensor.set_temperature_oversample(bme680.OS_8X)
+sensor.set_filter(bme680.FILTER_SIZE_0)
 
-def gettemperatur():
+def getTemperatur():
 	if sensor.get_sensor_data():
 		return temperature = sensor.data.temperature
 	else:
-		print ("Error! Couldn't retrieve temperature data from BME680 Sensor")
-		return 0	
-		
-def getpressure():
+		sys.stderr.write("Error! Couldn't retrieve temperature data from BME680 Sensor")
+		return 0
+
+def getPressure():
 	if sensor.get_sensor_data():
 		return pressure = sensor.data.pressure
 	else:
-		print ("Error! Couldn't retrieve pressure data from BME680 Sensor")
-		return 0			
-		
-def gethumidity():
+		sys.stderr.write("Error! Couldn't retrieve temperature data from BME680 Sensor")
+		return 0
+
+def getHumidity():
 	if sensor.get_sensor_data():
 		return humidity = sensor.data.humidity
 	else:
-		print ("Error! Couldn't retrieve humidity data from BME680 Sensor")
-		return 0			
+		sys.stderr.write("Error! Couldn't retrieve temperature data from BME680 Sensor")
+		return 0
