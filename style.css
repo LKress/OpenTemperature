@@ -1,0 +1,35 @@
+h1 {
+	font-size: 55px;
+	text-decoration: underline;
+	color : #111111;
+	font-family: "Trebuchet MS", sans-serif;
+}
+
+body {
+	background-color: #F5FFFA;
+}
+
+th {
+	font-size: 65px;
+	text-decoration: underline;
+	color : #111111;
+	font-family: "Trebuchet MS", sans-serif;
+}
+
+td {
+	font-size: 30px;
+	font-family: "Trebuchet MS", sans-serif;
+}
+
+hr {
+	border: none;
+	height: 2px;
+	background-color: black;
+}
+
+.center {
+		display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 20%;
+}
