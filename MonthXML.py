@@ -29,12 +29,13 @@ import time
 def addDay():
 	try:
 		et = etree.parse("XMLTest.xml") #baum datei holen
-		day = etree.SubElement(et.getroot(),"day"+time.strftime("%d")) #unterknoten mit aktuellem datum uebergeben
+		weatherArr = getDayData()
+		day = etree.SubElement(et.getroot(),"day"+time.strftime("%d"), temp=str(weatherArr[0]), hum=str(weatherArr[1]), pres=str(weatherArr[2])) #unterknoten mit aktuellem datum uebergeben
 		write(etree.ElementTree(et.getroot())) #baum schreiben
 	except etree.XMLSyntaxError:
-		sys.stderr.write("Error: File is empty")
+		sys.stderr.write("Error: File is empty\n")
 	except OSError: #fuer pi noch anpassen je nach fehlermeldung
-		sys.stderr.write("Error: File could not be found")
+		sys.stderr.write("Error: File could not be found\n")
 
 
 
@@ -50,3 +51,17 @@ def write(mytree):
 		f.close()
 	else:
 		sys.stderr.write("Error!\n")
+
+def getDayData():
+	et = etree.parse("XMLD.xml")
+	root = et.getroot()
+	avTemp = avHum = avPress = counter = 0
+	for child in root:
+		avTemp += float(child.get("temp"))
+		avHum += float(child.get("hum"))
+		avPress += float(child.get("pres"))
+		counter += 1
+	avTemp /= counter
+	avHum /= counter
+	avPress /= counter
+	return [avTemp,avHum,avPress]
