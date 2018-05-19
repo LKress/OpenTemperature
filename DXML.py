@@ -37,12 +37,15 @@ def create():
 
 def addhour(temp, hum, pres):
 	try:
-		tree= etree.parse("XMLD.xml")   #Parse an existing XML Sheet
+		tree= etree.parse("XMLDTest.xml")   #Parse an existing XML Sheet
 		root = tree.getroot()   
-		child = etree.SubElement(root, "hour" + hour, temp=str(temp), #Create a new Child
+		child = etree.SubElement(root, "hour" + hour,hour=hour, temp=str(temp), #Creates a new Child
 		hum=str(hum), pres=str(pres))
 		my_tree = etree.ElementTree(root)  #Add Child to tree
 		write(my_tree)					   #Call write function
+	
+	
+	
 	except etree.XMLSyntaxError:
 		print ("File doesn't have root node")
 	except IOError:
@@ -52,7 +55,7 @@ def addhour(temp, hum, pres):
 		
 def write(my_tree):
 	if isinstance(my_tree,etree._ElementTree):
-		f = open("XMLD.xml", "w")
+		f = open("XMLDTest.xml", "wb")
 		f.write(etree.tostring(my_tree, pretty_print=True))
 		f.close()
 	else:
