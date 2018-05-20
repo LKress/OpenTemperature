@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>OpenTemperature</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+{% include "includes/_navbar.html" %}
+<br><br>
+<div class="jumbotron text-center">
+  <h1 style="font-size:260%;"><b>OpenTemperature</b></h1>
+  <p style="font-size:170%;">See live weatherdata in your own home!</p>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-4">
+      <h3 class="text-center">Temperature</h3>
+			{% block page_TempContent %}{% endblock %}
+      <br><br>
+      <p class="text-center">current Temperature: {{ temperature }}</p>
+      <p></p>
+    </div>
+    <div class="col-sm-4">
+      <h3 class="text-center">Humidity</h3>
+			{% block page_HumContent %}{% endblock %}
+      <br><br>
+      <p class="text-center">current Humidity: {{ humidity }}</p>
+      <p></p>
+    </div>
+    <div class="col-sm-4">
+      <h3 class="text-center">Pressure</h3>
+			{% block page_PressContent %}{% endblock %}
+      <br><br>
+      <p class="text-center">current Pressure: {{ pressure }}</p>
+      <p></p>
+    </div>
+  </div>
+</div>
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+<a href="https://www.th-bingen.de/home/"><img width="15%" style="display: block; margin-left: auto; margin-right: auto;" src="{{url_for('static', filename='TH-Bingen-Logo-blau-RGB.jpg')}}"/></a>
+
+<br>
+
+</body>
+</html>
