@@ -23,14 +23,14 @@
 #
 
 from flask import Flask, render_template
-#import Sensor_Data
+import Sensor_Data
 app = Flask(__name__)
 
 @app.route('/', methods=["GET", "POST"])
 def index():
-    #temp = Sensor_Data.getTemperatur()
-    #hum = Sensor_Data.getHumidity()
-    #press = Sensor_Data.getHumidity()
+    temp = Sensor_Data.getTemperatur()
+    hum = Sensor_Data.getHumidity()
+    press = Sensor_Data.getHumidity()
     return render_template("homePictures.html", temperature=temp, humidity=hum, pressure=press)
 
 @app.route('/about', methods=["GET", "POST"])
