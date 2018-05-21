@@ -1,0 +1,7 @@
+{% extends "/graphs/graph_structures.html" %}
+{% block page_GraphName %}
+Today's Pressure
+{% endblock %}
+{% block page_Graph %}
+<img width="65%" style="display: block; margin-left: auto; margin-right: auto;" src="{{url_for('static', filename='pressure.png')}}"/>
+{% endblock %}
