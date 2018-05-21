@@ -37,7 +37,7 @@ def create():
 
 def addhour(temp, hum, pres):
 	try:
-		tree= etree.parse("XMLDTest.xml")   #Parse an existing XML Sheet
+		tree= etree.parse("XMLD.xml")   #Parse an existing XML Sheet
 		root = tree.getroot()   
 		child = etree.SubElement(root, "hour" + hour,hour=hour, temp=str(temp), #Creates a new Child
 		hum=str(hum), pres=str(pres))
@@ -55,7 +55,7 @@ def addhour(temp, hum, pres):
 		
 def write(my_tree):
 	if isinstance(my_tree,etree._ElementTree):
-		f = open("XMLDTest.xml", "wb")
+		f = open("XMLD.xml", "wb")
 		f.write(etree.tostring(my_tree, pretty_print=True))
 		f.close()
 	else:

@@ -22,17 +22,17 @@
 #
 #
 
-from lxml import etree
-import sys
+#import sys
 import time
-import DXML
+import DXML #adjust name
+import MonthXML #adjust name
 import Sensor_Data
 
 start_time = time.time()
 current_time = time.time()
 ten_minutes = 600
 
-while current_time - start_time <= 600:
+while current_time - start_time <= ten_minutes:
 	current_time = time.time()
 	tmp = Sensor_Data.getTemperatur()
 	hum = Sensor_Data.getHumidity()
@@ -40,6 +40,7 @@ while current_time - start_time <= 600:
 
 if time.strftime("%H") == 0:
 	DXML.create()
+ 	DXML.addhour(Sensor_Data.getTemperatur(), Sensor_Data.getHumidity(), Sensor_Data.getPressure())
 else:
 	DXML.addhour(Sensor_Data.getTemperatur(), Sensor_Data.getHumidity(), Sensor_Data.getPressure())
 
