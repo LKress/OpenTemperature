@@ -25,77 +25,13 @@ echo "###################################################
 
 sleep 3
 
-echo "Checking for sudo permissions"
-     if [ "$(whoami)" != "root" ] 
-        then
-         exec sudo su
-        
-     fi
-echo "Installing BME 680 libraries"
-     python -c "import bme680"
-     if [ $? eq 0 ]
-        then
-			echo "Already installed. Continue"
-		else
-		    pip install bme680
-		    
-	 fi	    	
-        
-echo "Installing LXML libraries"
-     python -c "import lxml"
-     if [ $? eq 0 ]
-        then
-			echo "Already installed. Continue"
-		else
-		    pip install lxml
-		    
-	 fi	    	
-        
-echo "Installing MatPlot Py libraries"
-     python -c "import matplotlib"
-     if [ $? eq 0 ]
-        then
-			echo "Already installed. Continue"
-		else
-		    pip install matplotlib
-		    
-	 fi	   
-
-#Enable I2C Bus on Raspberry PI
-
-read -p "Is your I2C bus already enabled? * for not sure:) (Y|y|N|n|*):" answer
-case $answer in
-     "Y"|"y")
-      echo "We will continue with checking connectivity"
-      checkI2CDevice
-      ;;
-     "N"|"n")
-      enableI2cBus
-    ;;
-    *)
-    echo "Checking Kernel module"
-    checkI2cBus
-esac 
-
-echo"########################################
-#All done. Your I2C BME 680 is connected# 
-#Flask & OpenTemp are loaded by cron    #
-#Web Interface running IP Device:5005   #
-#########################################"
-
-
-
-
-
-
-
 #####################################
 #All I2C functions are located here.#
 #####################################
  
-function checkI2cBus{
+function checkI2cBus(){
 lsmod | grep i2c_dev
-if [ $? eq 1]
+if [ $? -eq 1]
     then 
 		echo "Not enabled... Next step enable I2C"
 		enableI2cBus
@@ -104,7 +40,7 @@ if [ $? eq 1]
 fi
 }
 
-function enableI2cBus{
+function enableI2cBus(){
 	echo "Enabling kernel module"
     echo "i2c-dev" >> /etc/modules
     echo "i2c-bcm2708" >> /etc/modules
@@ -144,4 +80,61 @@ read -p "Enter your WebServer directory (full path):" dir2
 read -p "Set user for WebServer (root|pi|foo|...)" :user
 echo "@reboot         $user $dir" >> /etc/crontab
 }
+
+echo "Checking for sudo permissions"
+     if [ "$(whoami)" != "root" ] 
+        then
+         exec sudo su
+        
+     fi
+echo "Installing BME 680 libraries"
+     python -c "import bme680"
+     if [ $? -eq 0 ]
+        then
+			echo "Already installed. Continue"
+		else
+		    pip3 install bme680
+		    
+	 fi	    	
+        
+echo "Installing LXML libraries"
+     python -c "import lxml"
+     if [ $? -eq 0 ]
+        then
+			echo "Already installed. Continue"
+		else
+		    pip3 install lxml
+		    
+	 fi	    	
+        
+echo "Installing MatPlot Py libraries"
+     python -c "import matplotlib"
+     if [ $? -eq 0 ]
+        then
+			echo "Already installed. Continue"
+		else
+		    pip3 install matplotlib
+		    
+	 fi	   
+
+#Enable I2C Bus on Raspberry PI
+
+read -p "Is your I2C bus already enabled? * for not sure:) (Y|y|N|n|*):" answer
+case $answer in
+     "Y"|"y")
+      echo "We will continue with checking connectivity"
+      checkI2CDevice();;
+     "N"|"n")
+      enableI2cBus()
+      ;;
+    "*")
+     echo "Checking Kernel module"
+     checkI2cBus()
+esac 
+
+echo"########################################
+#All done. Your I2C BME 680 is connected# 
+#Flask & OpenTemp are loaded by cron    #
+#Web Interface running IP Device:5005   #
+#########################################"
 
