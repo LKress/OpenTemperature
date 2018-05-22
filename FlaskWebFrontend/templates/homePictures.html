@@ -1,0 +1,12 @@
+		{% extends "homeStructure.html" %}
+		{% block page_TempContent %}
+		<a href="/temperature"><img width="100%" src="{{url_for('static', filename='temperature.png')}}"/></a>
+		{% endblock %}
+
+		{% block page_HumContent %}
+		<a href="/humidity"><img width="100%" src="{{url_for('static', filename='humidity.png')}}"/></a>
+		{% endblock %}
+
+		{% block page_PressContent %}
+		<a href="/pressure"><img width="100%" src="{{url_for('static', filename='pressure.png')}}"/></a>
+		{% endblock %}
