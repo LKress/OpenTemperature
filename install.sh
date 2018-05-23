@@ -49,7 +49,7 @@ enableI2CBus(){
     echo "i2c-bcm2708" >> /etc/modules
     echo "dtparam=i2c1=on" >> /boot/config.txt
     echo "dtparam=i2c_arm=on" >> /boot/config.txt
-    sed -i -e 's/blacklist i2c-bcm2708/#blacklist i2c-bcm2708/' /etc/modprobe.d/raspi-blacklist.config
+    sed -i -e 's/blacklist i2c-bcm2708/#blacklist i2c-bcm2708/' /etc/modprobe.d/raspi-blacklist.conf
 }
 
 checkI2CDevice(){
@@ -75,14 +75,14 @@ esac
 autocronjob(){
 
 #Setting system wide cron job for OpenTemp main
-read -p "Enter your OpenTemp directory" : dir
-read -p "Set user for OpenTemp (root|pi|foo|...)" :user
+read -p "Enter your OpenTemp directory:" dir
+read -p "Set user for OpenTemp (root|pi|foo|...):" user
 echo "50 */1 * * * $user $dir" >> /etc/crontab
 
 #Setting system wide cron job for Flask Server
 read -p "Enter your WebServer directory (full path):" dir2
-read -p "Set user for WebServer (root|pi|foo|...)" :user
-echo "@reboot         $user $dir" >> /etc/crontab
+read -p "Set user for WebServer (root|pi|foo|...):" user2
+echo "@reboot         $user2 $dir2" >> /etc/crontab
 }
 
 #echo "Checking for sudo permissions"
