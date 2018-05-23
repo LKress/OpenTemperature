@@ -80,7 +80,7 @@ def tempfig(maxmin):
 	#create and save plot in file
 	plot.grid()
 	plot.plot(ListTemp,color='r',linewidth=3.0)
-	plot.savefig('tempfig.png')
+	plot.savefig('./static/temperature.png')
 	
 def	pressfig(maxmin):
 	ylimits=maxmin
@@ -102,8 +102,8 @@ def	pressfig(maxmin):
 	#draw grid/create plot/save
 	plot.grid()
 	plot.bar(plothours,ListPres,color="g")
-	plot.savefig('pressfig.png')
-	plot.title("Awesome Humidity")
+	plot.savefig('./static/pressure.png')
+	
 
 
 def humfig(maxmin):
@@ -124,7 +124,7 @@ def humfig(maxmin):
 	#draw grid/create plot/save
 	plot.grid()
 	plot.plot(ListHum,color='b',linewidth=3.0)
-	plot.savefig('humfig.png')
+	plot.savefig('./static/humidity.png')
 	
 		
 

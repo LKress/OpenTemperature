@@ -23,24 +23,27 @@ echo "###################################################
 #Pip installs lxml, MathPlot                      #
 ###################################################" 
 
-sleep 3
+sleep 1
 
-#####################################
-#All I2C functions are located here.#
-#####################################
+#######################################################################
+#All I2C functions are located here.								  #
+#checkI2CBus --> call lsmod --> looks for loaded kernel module        #
+#enableI2CBus --> adjusts config files for loading i2c kernel module  #
+#checkI2CDevice --> calls i2cdetect --> displays connected i2c devices#
+#######################################################################
  
-function checkI2cBus(){
+checkI2CBus(){
 lsmod | grep i2c_dev
-if [ $? -eq 1]
+if [ $? -eq 1 ]
     then 
 		echo "Not enabled... Next step enable I2C"
 		enableI2cBus
 	else
-		echo "Already loaded by Kernel $(uname -r)"
+		echo "Already loaded by kernel $(uname -r)"
 fi
 }
 
-function enableI2cBus(){
+enableI2CBus(){
 	echo "Enabling kernel module"
     echo "i2c-dev" >> /etc/modules
     echo "i2c-bcm2708" >> /etc/modules
@@ -48,7 +51,8 @@ function enableI2cBus(){
     echo "dtparam=i2c_arm=on" >> /boot/config.txt
     sed -i -e 's/blacklist i2c-bcm2708/#blacklist i2c-bcm2708/' /etc/modprobe.d/raspi-blacklist.config
 }
-function checkI2CDevice(){
+
+checkI2CDevice(){
 i2cdetect -y 0
 case $? in
 	  1)
@@ -60,33 +64,33 @@ esac
 i2cdetect -y 1
 case $? in
 	 1)
-	 "Not connected on bus 0"
-	 return 0
+	 "Not connected on bus 1"
 	 ;;
 	 0)
 	 echo "Connected"
 esac	 
-		
 }	
-function autocronjob(){
-#System wide? User specific?
-#crontab -l > ./.opemtempcron
+
+#autocronjob sets crontabs for OpenTemp & the Flask framework
+autocronjob(){
+
 #Setting system wide cron job for OpenTemp main
 read -p "Enter your OpenTemp directory" : dir
 read -p "Set user for OpenTemp (root|pi|foo|...)" :user
 echo "50 */1 * * * $user $dir" >> /etc/crontab
+
 #Setting system wide cron job for Flask Server
 read -p "Enter your WebServer directory (full path):" dir2
 read -p "Set user for WebServer (root|pi|foo|...)" :user
 echo "@reboot         $user $dir" >> /etc/crontab
 }
 
-echo "Checking for sudo permissions"
-     if [ "$(whoami)" != "root" ] 
-        then
-         exec sudo su
-        
-     fi
+#echo "Checking for sudo permissions"
+#     if [ "$(whoami)" != "root" ] 
+#        then
+#         exec sudo su &
+#        
+#     fi
 echo "Installing BME 680 libraries"
      python -c "import bme680"
      if [ $? -eq 0 ]
@@ -123,14 +127,22 @@ read -p "Is your I2C bus already enabled? * for not sure:) (Y|y|N|n|*):" answer
 case $answer in
      "Y"|"y")
       echo "We will continue with checking connectivity"
-      checkI2CDevice();;
+      ;;
      "N"|"n")
-      enableI2cBus()
+      enableI2CBus
       ;;
     "*")
      echo "Checking Kernel module"
-     checkI2cBus()
-esac 
+     checkI2CBus
+esac
+
+echo "Checking for connected I2C device"
+checkI2CDevice
+
+echo "Setting crontab"
+autocronjob
+
+ 
 
 echo"########################################
 #All done. Your I2C BME 680 is connected# 
