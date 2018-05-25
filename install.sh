@@ -50,6 +50,7 @@ enableI2CBus(){
     echo "dtparam=i2c1=on" >> /boot/config.txt
     echo "dtparam=i2c_arm=on" >> /boot/config.txt
     sed -i -e 's/blacklist i2c-bcm2708/#blacklist i2c-bcm2708/' /etc/modprobe.d/raspi-blacklist.conf
+    modprobe i2c-dev
 }
 
 checkI2CDevice(){
@@ -84,6 +85,13 @@ read -p "Enter your WebServer directory (full path):" dir2
 read -p "Set user for WebServer (root|pi|foo|...):" user2
 echo "@reboot         $user2 $dir2" >> /etc/crontab
 }
+xml(){
+	touch ./XMLD.xml
+	echo "<day$(date + %d)> </day$(date + %d)" >> ./XMLD.xml
+	
+	touch ./MXML.xml
+	echo "<month$(date + %m)> </month$(date + %m)>" >> ./MXLM.xml
+}	
 
 #echo "Checking for sudo permissions"
 #     if [ "$(whoami)" != "root" ] 
@@ -92,7 +100,7 @@ echo "@reboot         $user2 $dir2" >> /etc/crontab
 #        
 #     fi
 echo "Installing BME 680 libraries"
-     python -c "import bme680"
+     python3 -c "import bme680"
      if [ $? -eq 0 ]
         then
 			echo "Already installed. Continue"
@@ -102,7 +110,7 @@ echo "Installing BME 680 libraries"
 	 fi	    	
         
 echo "Installing LXML libraries"
-     python -c "import lxml"
+     python3 -c "import lxml"
      if [ $? -eq 0 ]
         then
 			echo "Already installed. Continue"
@@ -112,7 +120,7 @@ echo "Installing LXML libraries"
 	 fi	    	
         
 echo "Installing MatPlot Py libraries"
-     python -c "import matplotlib"
+     python3 -c "import matplotlib"
      if [ $? -eq 0 ]
         then
 			echo "Already installed. Continue"
@@ -120,6 +128,16 @@ echo "Installing MatPlot Py libraries"
 		    pip3 install matplotlib
 		    
 	 fi	   
+
+echo "Installing Flask framework"
+     python3 -c "import flask"
+     if [ $? -eq 0 ]
+        then
+			echo "Already installed. Continue"
+		else
+		    pip3 install flask
+		    
+	 fi	   	 
 
 #Enable I2C Bus on Raspberry PI
 
@@ -142,7 +160,8 @@ checkI2CDevice
 echo "Setting crontab"
 autocronjob
 
- 
+echo "Create XML sheets"
+xml
 
 echo"########################################
 #All done. Your I2C BME 680 is connected# 

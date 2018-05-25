@@ -1,0 +1,24 @@
+<day01>
+  <hour00 hour="00" hum="52.53" pres="1005.65" temp="24.56"/>
+  <hour01 hour="01" hum="52.33" pres="1005.71" temp="24.67"/>
+  <hour02 hour="02" hum="52.77" pres="1005.43" temp="24.56"/>
+  <hour03 hour="03" hum="52.44" pres="1005.33" temp="24.78"/>
+  <hour04 hour="04" hum="52.00" pres="1005.23" temp="24.98"/>
+  <hour05 hour="05" hum="54.00" pres="1005.88" temp="25.34"/>
+  <hour06 hour="06" hum="55.00" pres="1005.67" temp="25.66"/>
+  <hour07 hour="07" hum="56.00" pres="1005.65" temp="25.76"/>
+  <hour08 hour="08" hum="56.90" pres="1005.66" temp="25.45"/>
+  <hour09 hour="09" hum="56.34" pres="1005.61" temp="25.99"/>
+  <hour10 hour="10" hum="56.78" pres="1005.64" temp="26.02"/>
+  <hour11 hour="11" hum="56.34" pres="1005.66" temp="26.04"/>
+  <hour12 hour="12" hum="56.77" pres="1005.68" temp="26.23"/>
+  <hour13 hour="13" hum="56.87" pres="1005.69" temp="26.33"/>
+  <hour14 hour="14" hum="56.34" pres="1005.70" temp="26.45"/>
+  <hour15 hour="15" hum="55.78" pres="1005.71" temp="26.34"/>
+  <hour16 hour="16" hum="55.88" pres="1005.45" temp="26.66"/>
+  <hour17 hour="17" hum="54.34" pres="1005.34" temp="27.87"/>
+  <hour18 hour="18" hum="54.99" pres="1005.66" temp="27.43"/>
+  <hour19 hour="19" hum="54.34" pres="1005.22" temp="27.24"/>
+  <hour20 hour="20" hum="56.67" pres="1005.23" temp="27.67"/>
+  <hour21 hour="21" hum="56.33" pres="1005.45" temp="26.45"/>
+</day01>

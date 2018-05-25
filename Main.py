@@ -40,7 +40,7 @@ while current_time - start_time <= ten_minutes:
 
 if time.strftime("%H") == 0:
 	DXML.create()
- 	DXML.addhour(Sensor_Data.getTemperatur(), Sensor_Data.getHumidity(), Sensor_Data.getPressure())
+	DXML.addhour(Sensor_Data.getTemperatur(), Sensor_Data.getHumidity(), Sensor_Data.getPressure())
 else:
 	DXML.addhour(Sensor_Data.getTemperatur(), Sensor_Data.getHumidity(), Sensor_Data.getPressure())
 
