@@ -21,6 +21,8 @@
 #  MA 02110-1301, USA.
 #  
 #
+import matplotlib
+matplotlib.use('agg')
 from lxml import etree
 from matplotlib import pyplot as plot
 from matplotlib import style
