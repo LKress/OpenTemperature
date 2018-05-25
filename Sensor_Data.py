@@ -43,21 +43,21 @@ sensor.set_filter(bme680.FILTER_SIZE_0)
 ##########################################################
 def getTemperatur():
 	if sensor.get_sensor_data():
-		return sensor.data.temperature
+		return sensor.data.temperature()
 	else:
 		sys.stderr.write("Error! Couldn't retrieve temperature data from BME680 Sensor")
 		#return 0
 
 def getPressure():
 	if sensor.get_sensor_data():
-		return sensor.data.pressure
+		return sensor.data.pressure()
 	else:
 		sys.stderr.write("Error! Couldn't retrieve pressure data from BME680 Sensor")
 		#return 0
 
 def getHumidity():
 	if sensor.get_sensor_data():
-		return sensor.data.humidity
+		return sensor.data.humidity()
 	else:
 		sys.stderr.write("Error! Couldn't retrieve humidity data from BME680 Sensor")
 		#return 0
