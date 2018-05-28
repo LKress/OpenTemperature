@@ -76,22 +76,22 @@ esac
 autocronjob(){
 
 #Setting system wide cron job for OpenTemp main
-read -p "Enter your OpenTemp directory(complete path):" dir
+read -p "Enter your OpenTemp Main path name(complete path):" dir
 read -p "Set user for OpenTemp (root|pi|foo|...):" user
 echo "50 */1 * * * $user $dir &" >> /etc/crontab
 
 #Setting system wide cron job for Flask Server
-read -p "Enter your WebServer directory (complete path):" dir2
+read -p "Enter your WebServer(flask) path name (complete path):" dir2
 read -p "Set user for WebServer (root|pi|foo|...):" user2
 echo "@reboot         $user2 $dir2 &" >> /etc/crontab
 }
 
 xml(){
 	touch ./XMLD.xml
-	echo "<day$(date + %d)> </day$(date + %d)" >> ./XMLD.xml
+	echo "<day$(date +%d)> </day$(date +%d)" >> ./XMLD.xml
 	
 	touch ./MXML.xml
-	echo "<month$(date + %m)> </month$(date + %m)>" >> ./MXLM.xml
+	echo "<month$(date +%m)> </month$(date +%m)>" >> ./MXML.xml
 }	
 
 #echo "Checking for sudo permissions"
@@ -168,6 +168,7 @@ xml
 
 chmod 774 ./Main.py
 chmod 774 ./flasktest.py
+./flasktest.py &
 
 echo"########################################
 #All done. Your I2C BME 680 is connected# 
