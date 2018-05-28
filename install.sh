@@ -90,7 +90,7 @@ xml(){
 	touch ./XMLD.xml
 	echo "<day$(date +%d)> </day$(date +%d)" >> ./XMLD.xml
 	
-	touch ./MXML.xml
+	touch ./XMLM.xml
 	echo "<month$(date +%m)> </month$(date +%m)>" >> ./MXML.xml
 }	
 

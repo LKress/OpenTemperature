@@ -28,7 +28,7 @@ import time
 
 def addDay():
 	try:
-		et = etree.parse("MXML.xml") #baum datei holen
+		et = etree.parse("XMLM.xml") #baum datei holen
 		weatherArr = getDayData()
 		day = etree.SubElement(et.getroot(),"day"+time.strftime("%d"), temp=str(weatherArr[0]), hum=str(weatherArr[1]), pres=str(weatherArr[2])) #unterknoten mit aktuellem datum uebergeben
 		write(etree.ElementTree(et.getroot())) #baum schreiben
