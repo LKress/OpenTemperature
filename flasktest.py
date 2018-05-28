@@ -24,13 +24,10 @@
 
 from flask import Flask, render_template
 import Sensor_Data
-import MathPlot
-import subprocess
 app = Flask(__name__)
 
 @app.route('/', methods=["GET", "POST"])
 def index():
-    subprocess.call("./MathPlot.py")
     temp = round(Sensor_Data.getTemperatur(),2)
     hum = round(Sensor_Data.getHumidity(),2)
     press = round(Sensor_Data.getPressure(),2)
