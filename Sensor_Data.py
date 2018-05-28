@@ -64,6 +64,6 @@ def getHumidity():
 
 def getOversamples():
 	s =" "
-	s = "{0:} Temp, {1:} Hum, {2:} Press".format(sensor.get_temperature_oversmaple(), sensor.get_humidity_oversample(), sensor.get_pressure_oversample()
+	s = "{0:} Temp, {1:} Hum, {2:} Press".format(sensor.get_temperature_oversmaple(), sensor.get_humidity_oversample(), sensor.get_pressure_oversample())
 	return s
 	

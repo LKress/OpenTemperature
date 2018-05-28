@@ -27,6 +27,8 @@ import time
 import DXML #adjust name
 import MonthXML #adjust name
 import Sensor_Data
+import MathPlot
+import os
 
 start_time = time.time()
 current_time = time.time()
@@ -47,3 +49,4 @@ else:
 
 if time.strftime("%H") == 23:
 	MonthXML.addDay()
+os.system("./MathPlot.py")
