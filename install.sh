@@ -91,7 +91,7 @@ xml(){
 	echo "<day$(date +%d)> </day$(date +%d)" >> ./XMLD.xml
 	
 	touch ./XMLM.xml
-	echo "<month$(date +%m)> </month$(date +%m)>" >> ./MXML.xml
+	echo "<month$(date +%m)> </month$(date +%m)>" >> ./XMLM.xml
 }	
 
 #echo "Checking for sudo permissions"
