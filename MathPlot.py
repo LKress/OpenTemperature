@@ -21,6 +21,8 @@
 #  MA 02110-1301, USA.
 #
 #
+import matplotlib
+matplotlib.use('agg')
 from lxml import etree
 from matplotlib import pyplot as plot
 from matplotlib import style
@@ -43,7 +45,7 @@ def openXML():
 			ListPres[position]=(float(child.get("pres")))
 
 		return([min(x for x in ListTemp if x is not None),max(x for x in ListTemp if x is not None),
-				min(x for value in x if value is not None),max(x for x in ListHum if x is not None),
+				min(x for x in ListTemp if x is not None),max(x for x in ListHum if x is not None),
 				min(x for x in ListPres if x is not 0),max(x for x in ListPres if x is not 0)])
 
 

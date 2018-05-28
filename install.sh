@@ -76,15 +76,16 @@ esac
 autocronjob(){
 
 #Setting system wide cron job for OpenTemp main
-read -p "Enter your OpenTemp directory:" dir
+read -p "Enter your OpenTemp directory(complete path):" dir
 read -p "Set user for OpenTemp (root|pi|foo|...):" user
-echo "50 */1 * * * $user $dir" >> /etc/crontab
+echo "50 */1 * * * $user $dir &" >> /etc/crontab
 
 #Setting system wide cron job for Flask Server
-read -p "Enter your WebServer directory (full path):" dir2
+read -p "Enter your WebServer directory (complete path):" dir2
 read -p "Set user for WebServer (root|pi|foo|...):" user2
-echo "@reboot         $user2 $dir2" >> /etc/crontab
+echo "@reboot         $user2 $dir2 &" >> /etc/crontab
 }
+
 xml(){
 	touch ./XMLD.xml
 	echo "<day$(date + %d)> </day$(date + %d)" >> ./XMLD.xml
@@ -126,6 +127,8 @@ echo "Installing MatPlot Py libraries"
 			echo "Already installed. Continue"
 		else
 		    pip3 install matplotlib
+		    apt install libatlas3-base
+		    
 		    
 	 fi	   
 
@@ -162,6 +165,9 @@ autocronjob
 
 echo "Create XML sheets"
 xml
+
+chmod 774 ./Main.py
+chmod 774 ./flasktest.py
 
 echo"########################################
 #All done. Your I2C BME 680 is connected# 
