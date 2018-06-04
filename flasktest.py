@@ -28,9 +28,9 @@ app = Flask(__name__)
 
 @app.route('/', methods=["GET", "POST"])
 def index():
-    temp = round(Sensor_Data.getTemperatur(),2)
-    hum = round(Sensor_Data.getHumidity(),2)
-    press = round(Sensor_Data.getPressure(),2)
+    temp = Sensor_Data.getTemperatur()
+    hum = Sensor_Data.getHumidity()
+    press = Sensor_Data.getPressure()
     return render_template("homePictures.html", temperature=temp, humidity=hum, pressure=press)
 
 @app.route('/about', methods=["GET", "POST"])
