@@ -27,7 +27,6 @@ import time
 import DXML #adjust name
 import MonthXML #adjust name
 import Sensor_Data
-#import MathPlot
 import os
 
 start_time = time.time()
