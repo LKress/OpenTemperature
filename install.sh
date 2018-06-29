@@ -84,6 +84,16 @@ echo "50 */1 * * * $user $dir &" >> /etc/crontab
 read -p "Enter your WebServer(flask) path name (complete path):" dir2
 read -p "Set user for WebServer (root|pi|foo|...):" user2
 echo "@reboot         $user2 $dir2 &" >> /etc/crontab
+
+#Setting autocron for creating new XML Sheets daily
+echo "echo"<day$(date +%d)> </day$(date +%d)>" > /home/$user/OpenTemperature/XMLM.xml" > /etc/cron.monthly/
+CreateXMLM.sh
+
+echo "echo"<day$(date +%d)> </day$(date +%d)>" > /home/$user/OpenTemperature/XMLD.xml" > /etc/cron.daily/CreateXMLD.sh
+
+chmod 774 /etc/cron.monthly/CreateXMLM.sh
+chmod 774 /etc/cron.daily/CreateXMLD.sh
+
 }
 
 xml(){
@@ -167,8 +177,8 @@ echo "Create XML sheets"
 xml
 
 chmod 774 ./Main.py
-chmod 774 ./flasktest.py
-./flasktest.py &
+chmod 774 ./flaskOpenTemp.py
+./flaskOpenTemp.py &
 
 echo"########################################
 #All done. Your I2C BME 680 is connected# 

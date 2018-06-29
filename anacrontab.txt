@@ -12,4 +12,4 @@ LOGNAME=root
 7	10	cron.weekly	run-parts --report /etc/cron.weekly
 @monthly	15	cron.monthly	run-parts --report /etc/cron.monthly
 @monthly	1	XMLM.monthly	cd /home/pi/OpenTemperature/ && /bin/bash /home/pi/OpenTemperature/CreateMonthXML.sh
-1	1	XMLD.daily	cd /home/pi/OpenTemperature/ && /bin/bash /home/pi/OpenTemperature/CreatheDayXML.sh       
+1	1	XMLD.daily	cd /home/pi/OpenTemperature/ && /bin/bash /home/pi/OpenTemperature/CreateDayXML.sh       

@@ -28,25 +28,45 @@ from matplotlib import pyplot as plot
 from matplotlib import style
 #import numpy as np
 import sys
+import calendar
+import datetime
+import os
 
 ###########################################################
 #openXML --> open daily XML Sheet && save numbers in lists#
 #try & except --> XML Syntax or file not accessible       #
 ###########################################################
 
-def openXML():
-	try:
-		et = etree.parse("XMLD.xml")
-		root=et.getroot()
-		for child in root:
+def XMLD(et):
+	root = et.getroot()
+	for child in root:
 			position = int(child.get("hour"))
 			ListTemp[position]=(float(child.get("temp")))
 			ListHum[position]=(float(child.get("hum")))
 			ListPres[position]=(float(child.get("pres")))
+def XMLM(et):
+	root = et.getroot()
+	for child in root:
+			position = int(child.get("day"))
+			ListTempM[position-1]=(float(child.get("temp")))
+			ListHumM[position-1]=(float(child.get("hum")))
+			ListPresM[position-1]=(float(child.get("pres")))
 
-		return([min(x for x in ListTemp if x is not None),max(x for x in ListTemp if x is not None),
+def openXML(dayormonth):
+	try:
+		if (dayormonth == 0):
+			et = etree.parse("XMLD.xml")
+			XMLD(et)
+			return([min(x for x in ListTemp if x is not None),max(x for x in ListTemp if x is not None),
 				min(x for x in ListTemp if x is not None),max(x for x in ListHum if x is not None),
 				min(x for x in ListPres if x is not 0),max(x for x in ListPres if x is not 0)])
+
+		else:
+			et= etree.parse("XMLM.xml")
+			XMLM(et)
+			return([min(x for x in ListTempM if x is not None),max(x for x in ListTempM if x is not None),
+				min(x for x in ListTempM if x is not None),max(x for x in ListHumM if x is not None),
+				min(x for x in ListPresM if x is not 0),max(x for x in ListPresM if x is not 0)])
 
 
 	except etree.XMLSyntaxError:
@@ -61,7 +81,7 @@ def openXML():
 ################
 
 
-def tempfig(maxmin):
+def tempfig(maxmin, dayormonth, name):
 #create ylimits list
 	ylimits=maxmin
 	plot.figure() #new window --> Instance
@@ -72,19 +92,20 @@ def tempfig(maxmin):
 	plot.title("Awesome Temperature")
 
 	#sets limits for axis
+	x = object if( dayormonth==1) else 23
 	if isinstance(ylimits,list):
 		plot.ylim(ylimits[0]-5, ylimits[1]+5)
-		plot.xlim(0, 23)
+		plot.xlim(0, x)
 	else:
 		plot.ylim(-15,45)
-		plot.xlim(0, 23)
+		plot.xlim(0, x)
 
 	#create and save plot in file
 	plot.grid()
 	plot.plot(ListTemp,color='r',linewidth=3.0)
 	plot.savefig('./static/temperature.png')
 
-def	pressfig(maxmin):
+def	pressfig(maxmin, dayormonth, name):
 	ylimits=maxmin
 	plothours = []
 	for i in range(24):
@@ -110,7 +131,7 @@ def	pressfig(maxmin):
 
 
 
-def humfig(maxmin):
+def humfig(maxmin,dayormonth,name):
 	ylimits=maxmin
 	plot.figure()
 
@@ -131,11 +152,10 @@ def humfig(maxmin):
 	plot.savefig('./static/humidity.png')
 
 
-
+now = datetime.datetime.now()
 ListTemp = [None] * 24
 ListHum = [None] * 24
 ListPres = [0] *24
-
 #call openXML
 maxmin=[]
 maxmin= openXML()
@@ -143,3 +163,24 @@ maxmin= openXML()
 tempfig(maxmin)
 pressfig(maxmin)
 humfig(maxmin)
+
+now = datetime.datetime.now()
+timestamp = datetime.datetime.fromtimestamp(os.path.getmtime("./XMLM.xml"))
+
+a = calendar.monthrange(now.year, now.month)
+ListTempM =[None] *a[1]
+ListHumM = [None] * a[1]
+ListPresM = [0] *  a[1]
+
+if (now.hour == 23):
+	name = "now.year-now.month-now.day"
+	maxmin = openXML(1)
+	tempfig(maxmin,1,name,a)
+	pressfig(maxmin,1,name,a)
+	humfig(maxmin,1,name,a)
+	
+	
+
+
+
+
