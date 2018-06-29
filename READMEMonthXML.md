@@ -1,6 +1,6 @@
 # MonthXML
 ## How MonthXML works
-MonthXML has one important method:
+MonthXML has one important method:  
 addDay() calculates the median of the daily collected data and adds it to the MXML xml-Sheet.
 ```
 def addDay():
