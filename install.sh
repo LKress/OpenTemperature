@@ -19,8 +19,8 @@
 #  
 #  
 echo "###################################################
-#OpenTemp install & Downloading BME 680 from link #
-#Pip installs lxml, MathPlot                      #
+#OpenTemp install & downloading BME 680 from link #
+#Pip installs lxml, MathPlot, Flask               #
 ###################################################" 
 
 sleep 1
@@ -85,11 +85,11 @@ read -p "Enter your WebServer(flask) path name (complete path):" dir2
 read -p "Set user for WebServer (root|pi|foo|...):" user2
 echo "@reboot         $user2 $dir2 &" >> /etc/crontab
 
-#Setting autocron for creating new XML Sheets daily
-echo "echo"<day$(date +%d)> </day$(date +%d)>" > /home/$user/OpenTemperature/XMLM.xml" > /etc/cron.monthly/
+#Setting autocron for creating new XML Sheets daily & monthly
+echo "echo\"<day\$(date +%m)> </day\$(date +%m)>\" > /home/$user/OpenTemperature/XMLM.xml" > /etc/cron.monthly/
 CreateXMLM.sh
 
-echo "echo"<day$(date +%d)> </day$(date +%d)>" > /home/$user/OpenTemperature/XMLD.xml" > /etc/cron.daily/CreateXMLD.sh
+echo "echo\"<day\$(date +%d)> </day\$(date +%d)>\" > /home/$user/OpenTemperature/XMLD.xml" > /etc/cron.daily/CreateXMLD.sh
 
 chmod 774 /etc/cron.monthly/CreateXMLM.sh
 chmod 774 /etc/cron.daily/CreateXMLD.sh
